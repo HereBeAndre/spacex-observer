@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaVersion": 2020, // Allows for the parsing of modern JS
+    "ecmaFeatures": {
+      "jsx": true // Allows for the parsing of JSX
+    }
+  },
+  "plugins": ["@typescript-eslint"],
+  "extends": ["airbnb-base", "airbnb-typescript", "plugin:prettier/recommended"],
+  "ignorePatterns": ["serviceWorker.js", "webpack.config.js"],
+  "rules": {
+    "no-case-declarations": "off",
+    "react/no-danger": "off", // it's self explainatory that no-danger should be used sparingly
+    "react/react-in-jsx-scope": "off", // next.js does not require react in most components
+    "react/prop-types": "off", // as long as TS strict mode is off this is not required
+    "no-console": "warn", // no console statements allowed
+    "prettier/prettier": "off", // don't show prettier errors as it will be fixed when saved anyway
+    "import/extensions": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": [0],
+    "@typescript-eslint/no-explicit-any": [
+      "off",
+      {
+        "ignoreRestArgs": true
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "amd": true,
+    "jest": true
+  }
+}
