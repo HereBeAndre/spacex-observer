@@ -1,0 +1,13 @@
+@import '../../../utils/styles.scss';
+
+#main-layout {
+  min-height: 100vh;
+}
+
+.navbar__style {
+  @include display(flex, flex-end);
+
+  a {
+    margin-right: 1.5rem;
+  }
+}
