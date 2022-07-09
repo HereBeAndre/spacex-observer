@@ -1,3 +1,4 @@
-export enum AppRoutes {
-  LAUNCHES = '/launches',
-}
+export const AppRoutes = {
+  DASHBOARD: '/',
+  LAUNCHES: '/launches',
+};

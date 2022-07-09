@@ -1,13 +1,14 @@
 import React from 'react';
 import { RouteComponentProps } from '@reach/router';
+
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 
-const Launches = (props: RouteComponentProps) => {
+const Dashboard = (props: RouteComponentProps) => {
   return (
     <MainLayout>
-      <h1>Launches page</h1>
+      <h1>Dashboard Page</h1>
     </MainLayout>
   );
 };
 
-export default Launches;
+export default Dashboard;

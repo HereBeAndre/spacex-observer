@@ -1,0 +1,6 @@
+@mixin display($mode, $justify: '', $align: '', $direction: '') {
+  display: $mode;
+  justify-content: #{$justify};
+  align-items: #{$align};
+  direction: #{$direction};
+}
