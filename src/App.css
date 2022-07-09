@@ -1,15 +1,7 @@
 .App {
-  margin: 0 32px;
   text-align: center;
-}
-
-.App__main {
-  background-color: #fff;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  min-width: 100vw;
   font-size: calc(10px + 2vmin);
   color: #252525;
 }
