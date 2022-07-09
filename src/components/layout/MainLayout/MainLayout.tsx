@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
-import { AppRoutes } from 'components/routes/urls';
+import { APP_ROUTES } from 'components/routes/routes';
 import Navbar from 'components/layout/Navbar/Navbar';
 import Sidebar from 'components/layout/Sidebar/Sidebar';
 
@@ -13,12 +13,13 @@ const { Header, Footer, Content } = Layout;
 const MainLayout: React.FC = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(() => false);
 
+  // TODO: Add click outside sidebar to close it + add X inside sidebar to close it
   const handleOpenSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   return (
     <Layout id="main-layout">
       <Header>
-        <Navbar routes={AppRoutes} className="navbar__style">
+        <Navbar routes={APP_ROUTES} className="navbar__style">
           <a onClick={handleOpenSidebar}>
             <SearchOutlined />
           </a>

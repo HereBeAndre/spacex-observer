@@ -23,6 +23,7 @@
     "@typescript-eslint/eslint-plugin": "5.20.0",
     "@typescript-eslint/parser": "5.20.0",
     "antd": "^4.21.5",
+    "axios": "^0.27.2",
     "babel-plugin-module-resolver": "4.1.0",
     "classnames": "^2.3.1",
     "eslint": "8.13.0",
@@ -37,6 +38,7 @@
     "prettier": "2.6.2",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
+    "react-query": "^3.39.1",
     "react-scripts": "5.0.0",
     "typescript": "4.6.3",
     "web-vitals": "2.1.4"
