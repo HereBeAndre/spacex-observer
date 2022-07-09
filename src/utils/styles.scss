@@ -2,5 +2,5 @@
   display: $mode;
   justify-content: #{$justify};
   align-items: #{$align};
-  direction: #{$direction};
+  flex-direction: #{$direction};
 }

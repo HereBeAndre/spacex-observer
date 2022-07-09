@@ -2,6 +2,22 @@
 
 #main-layout {
   min-height: 100vh;
+
+  #inner-layout {
+    @include display(flex, '', '', row);
+
+    .main-content__container {
+      transition: margin-left 0.5s;
+
+      &.content-shrink {
+        margin-left: 250px;
+      }
+
+      &.content-grow {
+        margin-left: 0;
+      }
+    }
+  }
 }
 
 .navbar__style {
