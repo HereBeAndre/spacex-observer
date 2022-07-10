@@ -2,6 +2,6 @@
   text-align: center;
   min-height: 100vh;
   min-width: 100vw;
-  font-size: calc(10px + 2vmin);
+  /* font-size: calc(10px + 2vmin); TODO: Handle font-size inside app*/
   color: #252525;
 }

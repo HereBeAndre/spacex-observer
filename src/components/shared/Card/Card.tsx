@@ -1,16 +1,17 @@
 import React, { ReactNode } from 'react';
 
-interface ICardProps<T> {
-  data?: T;
+import './Card.scss';
+
+interface ICardProps {
   title: string;
   children?: ReactNode;
 }
 
-const Card = <T extends unknown>({ title, data, children }: ICardProps<T>) => {
+const Card: React.FC<ICardProps> = ({ title, children }) => {
   return (
-    <div>
+    <div className="card__style">
       <h3>{title}</h3>
-      {children}
+      <div className="card-content__style">{children}</div>
     </div>
   );
 };

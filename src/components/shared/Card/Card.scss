@@ -1,0 +1,21 @@
+.card__style {
+  color: rgb(255, 255, 255);
+  border-radius: 15px;
+  background: rgba(0, 0, 0, 0.5);
+
+  .card-content__style {
+    // flex-flow: column nowrap; TODO: Check here
+    width: 100%;
+    place-content: normal;
+    align-items: normal;
+    display: flex;
+  }
+
+  .launch-info {
+    width: 100%;
+    flex-flow: row nowrap;
+    place-content: normal;
+    align-items: normal;
+    display: flex;
+  }
+}

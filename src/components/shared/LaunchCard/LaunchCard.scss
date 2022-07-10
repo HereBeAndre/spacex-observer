@@ -1,0 +1,24 @@
+.launchcard-outer-div {
+  flex-flow: column nowrap;
+  place-content: normal space-between;
+  -webkit-box-pack: justify;
+  align-items: normal;
+  display: flex;
+  width: 50%;
+}
+
+.launchcard-inner-div {
+  flex-flow: column nowrap;
+  place-content: normal;
+  align-items: normal;
+  margin: 4px 0px;
+  display: flex;
+
+  .launchcard-inner-content {
+    flex-flow: column nowrap;
+    place-content: normal;
+    align-items: normal;
+    margin: 4px 0px;
+    display: flex;
+  }
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { Router } from '@reach/router';
 
 import Launches from 'components/pages/Launches';
-import Dashboard from 'components/pages/Dashboard';
+import Dashboard from 'components/pages/Dashboard/Dashboard';
 import { APP_ROUTES } from './routes';
 
 const Root = () => (
