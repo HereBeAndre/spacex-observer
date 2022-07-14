@@ -1,4 +1,4 @@
-export const AppRoutes = {
+export const APP_ROUTES = {
   DASHBOARD: '/',
   LAUNCHES: '/launches',
 };

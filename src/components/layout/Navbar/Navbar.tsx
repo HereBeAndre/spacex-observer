@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { AppRoutes } from 'components/routes/urls';
+import { APP_ROUTES } from 'components/routes/routes';
 
 interface INavbarProps {
-  routes: typeof AppRoutes;
+  routes: typeof APP_ROUTES;
   className?: string;
 }
 
