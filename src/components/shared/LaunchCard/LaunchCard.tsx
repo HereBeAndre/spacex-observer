@@ -1,5 +1,7 @@
-import moment from 'moment';
 import React from 'react';
+import moment from 'moment';
+
+import { TSpaceXResponseStatus } from 'schemas/api_d';
 import { ILaunch } from 'schemas/launch_d';
 
 import Card from '../Card/Card';
@@ -9,11 +11,20 @@ import './LaunchCard.scss';
 interface ILaunchCardProps<T> {
   data?: T;
   title: string;
+  requestStatus?: TSpaceXResponseStatus;
+  requestError?: unknown;
+  isLoading?: boolean;
 }
 
-const LaunchCard = <T extends ILaunch>({ data, title }: ILaunchCardProps<T>) => {
+const LaunchCard = <T extends ILaunch>({
+  data,
+  title,
+  requestStatus,
+  requestError,
+  isLoading = false,
+}: ILaunchCardProps<T>) => {
   return (
-    <Card title={title}>
+    <Card title={title} {...{ requestStatus, requestError, isLoading }}>
       <div className="launchcard-outer-div">
         <div className="launchcard-inner-div">
           <div className="launchcard-inner-content">
@@ -37,6 +48,7 @@ const LaunchCard = <T extends ILaunch>({ data, title }: ILaunchCardProps<T>) => 
       <div className="launchcard-outer-div">
         <div className="launchcard-inner-div">
           <div className="launchcard-inner-content">
+            {/* TODO: Add condition - if no mission patch, show other patch i.e. rocket patch */}
             <h4>Mission Patch</h4>
             <img
               src={data?.links?.patch?.small}
