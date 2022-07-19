@@ -4,7 +4,13 @@ import moment from 'moment';
 import { TDuration } from 'schemas/utils_d';
 
 import { MILLISECONDS_INTERVAL } from 'utils/constants';
-import { getDurationInterval, getNestedObjectPropertyByPathName } from 'utils/functions';
+import {
+  formatDateNumber,
+  getDurationInterval,
+  getNestedObjectPropertyByPathName,
+} from 'utils/functions';
+
+import './Countdown.scss';
 
 interface ICountdownProps {
   unixTime: number;
@@ -33,18 +39,16 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
 
   return (
     <div className="countdown-container">
-      <div className="countdown__days">
-        {getNestedObjectPropertyByPathName(durationObject, ['days'])}
-      </div>
-      <div className="countdown__hours">
-        {getNestedObjectPropertyByPathName(durationObject, ['hours'])}
-      </div>
-      <div className="countdown__minutes">
-        {getNestedObjectPropertyByPathName(durationObject, ['minutes'])}
-      </div>
-      <div className="countdown__seconds">
-        {getNestedObjectPropertyByPathName(durationObject, ['seconds'])}
-      </div>
+      {Object.entries(durationObject).map((entry) => {
+        return (
+          <div className="countdown__content">
+            <h2>
+              {formatDateNumber(getNestedObjectPropertyByPathName(durationObject, [entry[0]]))}
+            </h2>
+            <h2>{entry[0]}</h2>
+          </div>
+        );
+      })}
     </div>
   );
 };
