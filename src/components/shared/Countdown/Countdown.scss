@@ -1,0 +1,10 @@
+.countdown-container {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .countdown__content {
+    text-transform: uppercase;
+  }
+}
