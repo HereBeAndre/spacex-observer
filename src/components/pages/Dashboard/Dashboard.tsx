@@ -2,13 +2,19 @@ import React from 'react';
 // import { useQueryClient } from 'react-query';
 import { RouteComponentProps } from '@reach/router';
 
-import MainLayout from 'components/layout/MainLayout/MainLayout';
-import Card from 'components/shared/Card/Card';
+import { getLatestLaunch, getNextLaunch } from 'api';
 
-import './Dashboard.scss';
 import Grid from 'components/layout/Grid/Grid';
 import LaunchCard from 'components/shared/LaunchCard/LaunchCard';
-import { getLatestLaunch, getNextLaunch } from 'api';
+import MainLayout from 'components/layout/MainLayout/MainLayout';
+import Card from 'components/shared/Card/Card';
+import Countdown from 'components/shared/Countdown/Countdown';
+
+import { getNestedObjectPropertyByPathName } from 'utils/functions';
+
+import './Dashboard.scss';
+
+// TODO! Prevent react-query from fetching same data over and over on Dashboard re-render
 
 const Dashboard = (props: RouteComponentProps) => {
   // TODO: May be useless?
@@ -22,6 +28,10 @@ const Dashboard = (props: RouteComponentProps) => {
 
   return (
     <MainLayout>
+      <Countdown
+        unixTime={getNestedObjectPropertyByPathName(nextLaunchData, ['date_unix'])}
+        isLoading={isFetching}
+      />
       <Grid>
         <LaunchCard title="Next Launch" data={nextLaunchData}></LaunchCard>
         <LaunchCard title="Previous Launch" data={latestLaunchData}></LaunchCard>
