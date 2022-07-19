@@ -11,7 +11,7 @@ interface ICardProps {
 
 const Card: React.FC<ICardProps> = ({ title, children, ...rest }) => {
   return (
-    <div className="card__style">
+    <div className="card__style" {...rest}>
       <h3>{title}</h3>
       <div className="card-content__style">
         {typeGuardFunction(rest, 'isLoading') && rest.isLoading ? <p>Loading...</p> : children}

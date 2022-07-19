@@ -6,3 +6,6 @@ export const getNextLaunch = () => useFetchedData<ILaunch>('nextLaunch', ApiEndp
 
 export const getLatestLaunch = () =>
   useFetchedData<ILaunch>('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
+
+export const getUpcomingLaunches = () =>
+  useFetchedData<ILaunch[]>('upcomingLaunches', ApiEndpoints.UPCOMING_LAUNCHES);
