@@ -38,7 +38,7 @@ export interface ILaunch {
   tdb: boolean;
   net: boolean;
   window: number;
-  rocket: string;
+  rocket: string | object;
   success: boolean;
   failures: any[];
   details: string;
@@ -46,7 +46,7 @@ export interface ILaunch {
   ships: any[];
   capsules: string[];
   payloads: string[];
-  launchpad: string;
+  launchpad: string | object;
   auto_update: boolean;
   flight_number: number;
   name: string;
@@ -57,4 +57,24 @@ export interface ILaunch {
   upcoming: boolean;
   cores: ILaunchCore[];
   id: string;
+}
+
+/* getUpcomingLaunches() async function in api/index.ts has a `populate` property in request body.
+SpaceX API uses it in order for MongoDB to populate with other specified documents */
+// ! See here: https://github.com/r-spacex/SpaceX-API/blob/master/docs/queries.md
+
+export interface ILaunchQueryPopulated extends Omit<ILaunch, 'rocket' | 'launchpad'> {
+  // NOTE: This can potentially grow as more fields from different documents are added via query
+  rocket: {
+    name: string;
+    id: string;
+  };
+  launchpad: {
+    name: string;
+    id: string;
+  };
+}
+
+export interface ILaunchQuery {
+  docs: ILaunchQueryPopulated[];
 }
