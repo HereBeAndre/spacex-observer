@@ -41,7 +41,7 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
     <div className="countdown-container">
       {Object.entries(durationObject).map((entry) => {
         return (
-          <div className="countdown__content">
+          <div className="countdown__content" key={entry[0]}>
             <h2>
               {formatDateNumber(getNestedObjectPropertyByPathName(durationObject, [entry[0]]))}
             </h2>

@@ -36,6 +36,6 @@ export function getNestedObjectPropertyByPathName<T extends unknown>(
 export function formatDateNumber(input: number): string | number {
   // FIXME: When countdown hits 00, input arrives as `undefined` instead of `number`
   if (input === undefined) return '00';
-  if (input < 9) return `0${input}`;
+  if (input <= 9) return `0${input}`;
   return input;
 }

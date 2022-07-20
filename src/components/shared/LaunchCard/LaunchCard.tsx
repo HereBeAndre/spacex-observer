@@ -7,8 +7,9 @@ import { ILaunch } from 'schemas/launch_d';
 import Card from '../Card/Card';
 
 import './LaunchCard.scss';
+import ImageLogo from '../ImageLogo/ImageLogo';
 
-interface ILaunchCardProps<T> {
+export interface ILaunchCardProps<T> {
   data?: T;
   title: string;
   requestStatus?: TSpaceXResponseStatus;
@@ -16,6 +17,8 @@ interface ILaunchCardProps<T> {
   isLoading?: boolean;
 }
 
+/* <LaunchCard /> component is a wrapper for <Card /> component and it is
+specifically designed to display NEXT and PREVIOUS launch data */
 const LaunchCard = <T extends ILaunch>({
   data,
   title,
@@ -48,13 +51,8 @@ const LaunchCard = <T extends ILaunch>({
       <div className="launchcard-outer-div">
         <div className="launchcard-inner-div">
           <div className="launchcard-inner-content">
-            {/* TODO: Add condition - if no mission patch, show other patch i.e. rocket patch */}
             <h4>Mission Patch</h4>
-            <img
-              src={data?.links?.patch?.small}
-              alt="Mission Patch"
-              style={{ maxWidth: '180px' }}
-            />
+            <ImageLogo src={data?.links?.patch?.small} alt="Mission Patch" />
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { typeGuardFunction } from 'utils/functions';
 import './Card.scss';
 
 interface ICardProps {
-  title: string;
+  title?: string;
   children?: ReactNode;
   [x: string]: any;
 }
@@ -12,7 +12,7 @@ interface ICardProps {
 const Card: React.FC<ICardProps> = ({ title, children, ...rest }) => {
   return (
     <div className="card__style" {...rest}>
-      <h3>{title}</h3>
+      {title && <h3>{title}</h3>}
       <div className="card-content__style">
         {typeGuardFunction(rest, 'isLoading') && rest.isLoading ? <p>Loading...</p> : children}
       </div>
