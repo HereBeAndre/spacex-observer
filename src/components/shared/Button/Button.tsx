@@ -46,6 +46,7 @@ const Button: React.FC<IButtonProps> = ({
       }}
       className="generic-btn"
       id={`${variant}-btn`}
+      data-testid={`${variant}-btn`}
     >
       {text}
     </button>
