@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from '@reach/router';
 import { APP_ROUTES } from 'components/routes/routes';
-import Button from 'components/shared/Button/Button';
 
 interface INavbarProps {
   routes: typeof APP_ROUTES;

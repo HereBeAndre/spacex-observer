@@ -1,0 +1,80 @@
+import React from 'react';
+import { createHistory, createMemorySource, LocationProvider, navigate } from '@reach/router';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { unmountComponentAtNode } from 'react-dom';
+import { act } from 'react-dom/test-utils';
+import Button from '../components/shared/Button/Button';
+import { APP_ROUTES } from '../components/routes/routes';
+import App from '../App';
+
+// TODO: Move to dedicated file / folder
+// USAGE ~ Provide to any test file for components which relies on router being in context
+function renderWithRouter(
+  ui,
+  { route = '/', history = createHistory(createMemorySource(route)) } = {},
+) {
+  return {
+    ...render(<LocationProvider history={history}>{ui}</LocationProvider>),
+    // adding `history` to the returned utilities to allow us
+    // to reference it in our tests (just try to avoid using
+    // this to test implementation details).
+    history,
+  };
+}
+
+let container = null;
+beforeEach(() => {
+  container = document.createElement('div');
+  document.body.appendChild(container);
+});
+
+afterEach(() => {
+  unmountComponentAtNode(container);
+  container.remove();
+  container = null;
+});
+
+describe('<Button />', () => {
+  it('Should render button element', () => {
+    act(() => {
+      render(<Button />, container);
+    });
+    expect(screen.getByRole('button')).toBeInTheDocument();
+  });
+
+  it('Should display text passed in via props', () => {
+    act(() => {
+      render(<Button text="Submit" />);
+    });
+    expect(screen.getByText(/submit/i)).toBeInTheDocument();
+  });
+
+  it('Should apply correct variant passed in via props', () => {
+    act(() => {
+      render(<Button variant="primary" />);
+    });
+    expect(screen.getByTestId('primary-btn')).toHaveStyle('background-color: red');
+  });
+
+  it('Expects button to call onClick callback function once', () => {
+    const mockedFn = jest.fn();
+    act(() => {
+      render(<Button onClick={mockedFn} />);
+    });
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+    expect(mockedFn).toHaveBeenCalledTimes(1);
+  });
+
+  it('Should navigate to <Launches /> page when button is displayed in <Dashboard /> page', async () => {
+    const {
+      history: { navigate: reachRouterNavigate },
+    } = renderWithRouter(<App />);
+
+    expect(screen.getByText(/upcoming Launches/i)).toBeInTheDocument();
+    // with reach-router we don't need to simulate a click event, we can just transition
+    // to the page using the navigate function returned from the history object.
+    await reachRouterNavigate(APP_ROUTES.LAUNCHES);
+    expect(screen.getByText(/launches Page/i)).toBeInTheDocument();
+  });
+});
