@@ -13,11 +13,13 @@ import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCar
 import { getNestedObjectPropertyByPathName } from 'utils/functions';
 
 import './Dashboard.scss';
+import Button from 'components/shared/Button/Button';
+import { APP_ROUTES } from 'components/routes/routes';
 
 /* TODO! Prevent react-query from fetching same data over and over on Dashboard re-render
 https://tanstack.com/query/v4/docs/guides/important-defaults */
 
-const Dashboard = (props: RouteComponentProps) => {
+const Dashboard = ({ navigate }: RouteComponentProps) => {
   // TODO: May be useless?
   // const queryClient = useQueryClient();
 
@@ -29,6 +31,8 @@ const Dashboard = (props: RouteComponentProps) => {
 
   // TODO: Use metadata from response in file
   const { data: upcomingLaunches } = getUpcomingLaunches();
+
+  const onButtonClick = () => navigate!(APP_ROUTES.LAUNCHES);
 
   return (
     <MainLayout>
@@ -48,6 +52,7 @@ const Dashboard = (props: RouteComponentProps) => {
         {upcomingLaunches?.docs?.map((launch) => (
           <LaunchesItemCard data={launch} key={launch.id} />
         ))}
+        <Button variant="primary" onClick={onButtonClick} text="Show Launches" />
       </div>
     </MainLayout>
   );
