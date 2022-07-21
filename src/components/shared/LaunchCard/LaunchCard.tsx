@@ -1,13 +1,14 @@
 import React from 'react';
-import moment from 'moment';
 
 import { TSpaceXResponseStatus } from 'schemas/api_d';
 import { ILaunch } from 'schemas/launch_d';
 
+import { dateFormatter } from 'utils/functions';
+
 import Card from '../Card/Card';
+import ImageLogo from '../ImageLogo/ImageLogo';
 
 import './LaunchCard.scss';
-import ImageLogo from '../ImageLogo/ImageLogo';
 
 export interface ILaunchCardProps<T> {
   data?: T;
@@ -44,7 +45,7 @@ const LaunchCard = <T extends ILaunch>({
         <div className="launchcard-inner-div">
           <div className="launchcard-inner-content">
             <h4>UTC Time</h4>
-            <p>{moment(data?.date_utc).format('MMMM D YYYY, h:mm:ss A')}</p>
+            <p>{dateFormatter(data?.date_utc)}</p>
           </div>
         </div>
       </div>

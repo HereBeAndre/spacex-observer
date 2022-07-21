@@ -39,3 +39,6 @@ export function formatDateNumber(input: number): string | number {
   if (input <= 9) return `0${input}`;
   return input;
 }
+
+export const dateFormatter = (date?: number | string, format: string = 'MMMM D YYYY, h:mm:ss A') =>
+  date && moment(date).format(format);

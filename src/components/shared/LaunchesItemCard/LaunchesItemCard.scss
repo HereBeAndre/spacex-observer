@@ -1,0 +1,19 @@
+#launches-item-card__main-card {
+  max-width: 94%;
+  justify-content: space-around;
+  margin: 2rem;
+  padding: 1rem;
+}
+
+.launches-item-card__inner-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+@media (max-width: 600px) {
+  #launches-item-card__main-card {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
