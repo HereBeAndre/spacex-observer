@@ -6,11 +6,13 @@ interface IImageLogoProps {
   customStyle?: object;
 }
 
-const ImageLogo: React.FC<IImageLogoProps> = ({
-  src = 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg',
-  alt,
-  customStyle,
-}) => <img src={src} alt={alt} style={{ maxWidth: '180px', ...customStyle }} />;
+const ImageLogo: React.FC<IImageLogoProps> = ({ src, alt, customStyle }) => (
+  <img
+    src={src || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'}
+    alt={alt}
+    style={{ maxWidth: '180px', ...customStyle }}
+  />
+);
 
 export default ImageLogo;
 

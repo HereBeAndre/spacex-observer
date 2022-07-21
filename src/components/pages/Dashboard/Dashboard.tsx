@@ -7,13 +7,12 @@ import { getLatestLaunch, getNextLaunch, getUpcomingLaunches } from 'api';
 import Grid from 'components/layout/Grid/Grid';
 import LaunchCard from 'components/shared/LaunchCard/LaunchCard';
 import MainLayout from 'components/layout/MainLayout/MainLayout';
-import Card from 'components/shared/Card/Card';
 import Countdown from 'components/shared/Countdown/Countdown';
+import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 
-import { getNestedObjectPropertyByPathName, typeGuardFunction } from 'utils/functions';
+import { getNestedObjectPropertyByPathName } from 'utils/functions';
 
 import './Dashboard.scss';
-import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 
 /* TODO! Prevent react-query from fetching same data over and over on Dashboard re-render
 https://tanstack.com/query/v4/docs/guides/important-defaults */
@@ -45,7 +44,7 @@ const Dashboard = (props: RouteComponentProps) => {
         <Card title="Starlink"></Card> */}
       </Grid>
       <div style={{ maxWidth: '1200px', margin: '2rem auto 0' }}>
-        <h4>Upcoming Launches</h4>
+        <h3>Upcoming Launches</h3>
         {upcomingLaunches?.docs?.map((launch) => (
           <LaunchesItemCard data={launch} key={launch.id} />
         ))}
