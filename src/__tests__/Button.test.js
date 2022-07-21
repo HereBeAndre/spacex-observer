@@ -1,13 +1,4 @@
 import React from 'react';
-<<<<<<< HEAD
-import { createHistory, createMemorySource, LocationProvider, navigate } from '@reach/router';
-import { fireEvent, render, screen } from '@testing-library/react';
-import { unmountComponentAtNode } from 'react-dom';
-import { act } from 'react-dom/test-utils';
-import Button from '../components/shared/Button/Button';
-import { APP_ROUTES } from '../components/routes/routes';
-import App from '../App';
-=======
 import { createHistory, createMemorySource, LocationProvider } from '@reach/router';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { unmountComponentAtNode } from 'react-dom';
@@ -16,7 +7,6 @@ import { act } from 'react-dom/test-utils';
 import App from '../App';
 import Button from '../components/shared/Button/Button';
 import { APP_ROUTES } from '../components/routes/routes';
->>>>>>> Add generic <Button /> test suite
 
 // TODO: Move to dedicated file / folder
 // USAGE ~ Provide to any test file for components which relies on router being in context
