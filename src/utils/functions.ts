@@ -24,6 +24,8 @@ export function getDurationInterval(
   };
 }
 
+// Fix it in branch named tech-debt/narrow-pathname-type-annotation
+// Resource => https://www.typescriptlang.org/docs/handbook/2/generics.html#using-type-parameters-in-generic-constraints
 export function getNestedObjectPropertyByPathName<T extends unknown>(
   nestedObject: T,
   pathName: Array<any>, // TODO: Fix any with smth like keyof

@@ -47,7 +47,9 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
     initializeDurationObject(),
   );
   // We want to display a specific string whether event has happened or will happen
-  const [momentInTime, setMomentInTime] = useState<'next' | 'current' | ''>('');
+  const [momentInTime, setMomentInTime] = useState<string>('');
+
+  console.log(durationObject);
 
   useEffect(() => {
     const now = moment().unix();
@@ -67,7 +69,7 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
   if (isLoading) return <p>Loading...</p>;
 
   return (
-    <div className="countdown-container">
+    <article className="countdown-container">
       {Object.entries(durationObject).length ? <h3>{momentInTime} launch</h3> : null}
       {Object.entries(durationObject).map(([key]) => {
         return (
@@ -77,7 +79,7 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
           </div>
         );
       })}
-    </div>
+    </article>
   );
 };
 
