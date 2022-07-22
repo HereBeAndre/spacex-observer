@@ -8,17 +8,19 @@ export function typeGuardFunction<T>(object: T, key: string): boolean {
   return key in object;
 }
 
-// TODO: moment => Consider replacing `.duration` with `.diff`
+const getAbsoluteValue = (num: number) => Math.abs(num);
+
+// TODO TECH-DEBT solution has room for improvement
 export function getDurationInterval(
   unixTime: number,
   unit: DurationInputArg2 = 'milliseconds',
 ): Record<TDuration, number> {
   const duration = moment.duration(unixTime * MILLISECONDS_INTERVAL, unit);
   return {
-    days: duration.days(),
-    hours: duration.hours(),
-    minutes: duration.minutes(),
-    seconds: duration.seconds(),
+    days: getAbsoluteValue(duration.days()),
+    hours: getAbsoluteValue(duration.hours()),
+    minutes: getAbsoluteValue(duration.minutes()),
+    seconds: getAbsoluteValue(duration.seconds()),
   };
 }
 
@@ -32,6 +34,7 @@ export function getNestedObjectPropertyByPathName<T extends unknown>(
   );
 }
 
+// TODO Might be useless if better moment solution for countdown is implemented
 // USAGE ~ Format countdown numbers when they're less than 9
 export function formatDateNumber(input: number): string | number {
   // FIXME: When countdown hits 00, input arrives as `undefined` instead of `number`
