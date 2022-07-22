@@ -18,6 +18,22 @@ interface ICountdownProps {
 }
 
 // TODO! Fix delay in displaying countdown timer
+
+/* TODO! IMPORTANT: When upcoming mission countdown hits 0, timer starts increasing - indicating "Current Launch" time
+  Right now, this is being displayed:
+  00
+  DAYS
+  
+  0-14
+  HOURS
+  
+  0-22
+  MINUTES
+  
+  0-43
+  SECONDS
+*/
+
 const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
   // TODO! Fix any
   const [durationObject, setDurationObject] = useState<Record<TDuration, number>>({} as any);

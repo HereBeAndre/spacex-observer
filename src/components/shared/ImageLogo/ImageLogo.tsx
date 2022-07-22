@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 
 interface IImageLogoProps {
   src?: string;
   alt: string;
-  customStyle?: object;
+  customStyle?: CSSProperties;
 }
 
 const ImageLogo: React.FC<IImageLogoProps> = ({ src, alt, customStyle }) => (
