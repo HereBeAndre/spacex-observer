@@ -67,6 +67,7 @@ describe('<Button />', () => {
     expect(mockedFn).toHaveBeenCalledTimes(1);
   });
 
+  // TODO Should probably be moved in test suite of <Dashboard /> component?
   it('Should navigate to <Launches /> page when button is displayed in <Dashboard /> page', async () => {
     const {
       history: { navigate: reachRouterNavigate },

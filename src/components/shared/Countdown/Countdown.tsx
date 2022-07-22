@@ -49,7 +49,7 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle })
     initializeDurationObject(),
   );
   // We want to display a specific string whether event has happened or will happen
-  const [momentInTime, setMomentInTime] = useState<'next' | 'current' | ''>('');
+  const [momentInTime, setMomentInTime] = useState<string>('');
 
   useEffect(() => {
     const now = moment().unix();
@@ -68,12 +68,12 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle })
 
   if (isLoading) return <p>Loading...</p>;
 
-  return (
-    <div className="countdown-container">
+  return areArgsTruthy(Object.entries(durationObject).length) ? (
+    <article className="countdown-container" data-testid="countdown">
       {/* TODO Ideally title logic should be extracted in ad hoc countdown component -
       smth like LaunchComponent which implements Countdown */}
-      {areArgsTruthy(hasTitle, Object.entries(durationObject).length) ? (
-        <h3>{momentInTime} launch</h3>
+      {areArgsTruthy(hasTitle) ? (
+        <h3 data-testid="countdown-title">{momentInTime} launch</h3>
       ) : null}
       {Object.entries(durationObject).map(([key]) => {
         return (
@@ -83,8 +83,8 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle })
           </div>
         );
       })}
-    </div>
-  );
+    </article>
+  ) : null;
 };
 
 export default Countdown;
