@@ -39,6 +39,7 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
       <Countdown
         unixTime={getNestedObjectPropertyByPathName(nextLaunchData, ['date_unix'])}
         isLoading={isFetching}
+        hasTitle
       />
       <Grid>
         <LaunchCard title="Next Launch" data={nextLaunchData}></LaunchCard>

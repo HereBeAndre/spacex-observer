@@ -45,3 +45,5 @@ export function formatDateNumber(input: number): string | number {
 
 export const dateFormatter = (date?: number | string, format: string = 'MMMM D YYYY, h:mm:ss A') =>
   date && moment(date).format(format);
+
+export const areArgsTruthy = (...args: any[]) => args.every(Boolean);
