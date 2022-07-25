@@ -5,6 +5,7 @@ import { TDuration } from 'schemas/utils_d';
 
 import { MILLISECONDS_INTERVAL } from 'utils/constants';
 import {
+  areArgsTruthy,
   formatDateNumber,
   getDurationInterval,
   getNestedObjectPropertyByPathName,
@@ -17,6 +18,7 @@ const initializeDurationObject = () => ({} as Record<TDuration, number>);
 interface ICountdownProps {
   unixTime: number;
   isLoading?: boolean;
+  hasTitle?: boolean;
 }
 
 /* TECH-DEBT FIXED TO-CHECK IMPORTANT: When upcoming mission countdown hits 0, timer starts increasing - indicating "Current Launch" time
@@ -34,7 +36,7 @@ Right now, this is being displayed:
   SECONDS
   */
 
-const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
+const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle }) => {
   /* TODO I see two options here:
     Current scenario: Nothing is displayed while !Object.entries(durationObject).length
       Problems: - Delay in rendering countdown timer between isLoading === false and actual node render
@@ -68,7 +70,11 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading }) => {
 
   return (
     <div className="countdown-container">
-      {Object.entries(durationObject).length ? <h3>{momentInTime} launch</h3> : null}
+      {/* TODO Ideally title logic should be extracted in ad hoc countdown component -
+      smth like LaunchComponent which implements Countdown */}
+      {areArgsTruthy(hasTitle, Object.entries(durationObject).length) ? (
+        <h3>{momentInTime} launch</h3>
+      ) : null}
       {Object.entries(durationObject).map(([key]) => {
         return (
           <div className="countdown__content" key={key}>
