@@ -1,4 +1,4 @@
-import { useQuery, UseQueryResult } from 'react-query';
+import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios';
 import { BASE_URL, ApiVersion } from 'api/urls';
 
