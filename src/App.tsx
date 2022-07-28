@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <QueryClientProvider client={queryClient}>
         <Root />
-        <ReactQueryDevtools initialIsOpen />
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </div>
   );

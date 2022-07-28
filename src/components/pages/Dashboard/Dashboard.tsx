@@ -2,7 +2,7 @@ import React from 'react';
 // import { useQueryClient } from '@tanstack/react-query';
 import { RouteComponentProps } from '@reach/router';
 
-import { getLatestLaunch, getNextLaunch, getUpcomingLaunches } from 'api';
+import { getLaunch, postLaunchesQuery } from 'api';
 
 import Grid from 'components/layout/Grid/Grid';
 import LaunchCard from 'components/shared/LaunchCard/LaunchCard';
@@ -15,6 +15,7 @@ import { getNestedObjectPropertyByPathName } from 'utils/functions';
 import './Dashboard.scss';
 import Button from 'components/shared/Button/Button';
 import { APP_ROUTES } from 'components/routes/routes';
+import { ApiEndpoints } from 'api/urls';
 
 /* TODO! Prevent react-query from fetching same data over and over on Dashboard re-render
 https://tanstack.com/query/v4/docs/guides/important-defaults */
@@ -24,13 +25,40 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
   // const queryClient = useQueryClient();
 
   // TODO: Use metadata from response in file
-  const { status, data: nextLaunchData, error, isFetching } = getNextLaunch();
+  const {
+    status,
+    data: nextLaunchData,
+    error,
+    isFetching,
+  } = getLaunch('nextLaunch', ApiEndpoints.NEXT_LAUNCH);
 
   // TODO: Use metadata from response in file
-  const { data: latestLaunchData } = getLatestLaunch();
+  const { data: latestLaunchData } = getLaunch('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
 
   // TODO: Use metadata from response in file
-  const { data: upcomingLaunches } = getUpcomingLaunches();
+  const { data: upcomingLaunches } = postLaunchesQuery(
+    'fiveUpcomingLaunches',
+    ApiEndpoints.QUERY_UPCOMING_LAUNCHES,
+    {
+      query: { upcoming: true },
+      options: {
+        limit: 5,
+        sort: {
+          date_unix: 'asc',
+        },
+        populate: [
+          {
+            path: 'rocket',
+            select: { name: 1 },
+          },
+          {
+            path: 'launchpad',
+            select: { name: 1 },
+          },
+        ],
+      },
+    },
+  );
 
   const onButtonClick = () => navigate!(APP_ROUTES.LAUNCHES);
 
