@@ -1,31 +1,35 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 import axios from 'axios';
 import { BASE_URL, ApiVersion } from 'api/urls';
+import { buildUrl } from 'utils/functions';
 
-// TODO! No DRY - Refactor functions below
+const instance = axios.create({
+  baseURL: BASE_URL,
+});
+
+// TODO TECH-DEBT Not DRY
+// https://www.delftstack.com/howto/typescript/axios-typescript/
 
 // START ~ react-query hooks
 function useFetchedData<T>(
   key: string,
-  endpoint: string,
-  apiVersion: string = ApiVersion.V5,
+  url: string,
+  apiVersion: ApiVersion.V4 | ApiVersion.V5 = ApiVersion.V5,
 ): UseQueryResult<T> {
   return useQuery([key], async () => {
-    // TODO: Build URL with proper method?
-    const { data } = await axios.get(`${BASE_URL}${apiVersion}/${endpoint}`);
+    const { data } = await instance.get(buildUrl([apiVersion, url]));
     return data;
   });
 }
 
 function usePostData<T>(
   key: string,
-  endpoint: string,
+  url: string,
   payload: any,
   apiVersion: string = ApiVersion.V5,
 ): UseQueryResult<T> {
   return useQuery([key], async () => {
-    // TODO: Build URL with proper method?
-    const { data } = await axios.post(`${BASE_URL}${apiVersion}/${endpoint}`, payload);
+    const { data } = await instance.post(buildUrl([apiVersion, url]), payload);
     return data;
   });
 }
