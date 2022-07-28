@@ -1,31 +1,20 @@
 import { useFetchedData, usePostData } from 'hooks/useFetchedData';
 import { ILaunch, ILaunchQuery } from 'schemas/launch_d';
-import { ApiEndpoints } from './urls';
 
-export const getNextLaunch = () => useFetchedData<ILaunch>('nextLaunch', ApiEndpoints.NEXT_LAUNCH);
+// TODO TECH-DEBT https://www.delftstack.com/howto/typescript/axios-typescript/
 
-export const getLatestLaunch = () =>
-  useFetchedData<ILaunch>('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
+export const getLaunch = (key: string, endpoint: string) => useFetchedData<ILaunch>(key, endpoint);
 
-export const getUpcomingLaunches = () =>
-  usePostData<ILaunchQuery>('fiveUpcomingLaunches', ApiEndpoints.QUERY_UPCOMING_LAUNCHES, {
-    query: {
-      upcoming: true,
-    },
-    options: {
-      limit: 5,
-      sort: {
-        date_unix: 'asc',
-      },
-      populate: [
-        {
-          path: 'rocket',
-          select: { name: 1 },
-        },
-        {
-          path: 'launchpad',
-          select: { name: 1 },
-        },
-      ],
-    },
+type TQueryKey = 'query' | 'options';
+
+type TQueryObject<T> = Record<TQueryKey, T>;
+
+export const postLaunchesQuery = <T>(
+  key: string,
+  endpoint: string,
+  { query, options }: TQueryObject<T>,
+) =>
+  usePostData<ILaunchQuery>(key, endpoint, {
+    query,
+    options,
   });

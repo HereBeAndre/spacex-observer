@@ -1,3 +1,5 @@
+import { IPagination } from './metadata_d';
+
 interface ILaunchCore {
   core: string;
   flight: number;
@@ -75,6 +77,6 @@ export interface ILaunchQueryPopulated extends Omit<ILaunch, 'rocket' | 'launchp
   };
 }
 
-export interface ILaunchQuery {
+export interface ILaunchQuery extends IPagination {
   docs: ILaunchQueryPopulated[];
 }
