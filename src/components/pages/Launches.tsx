@@ -71,6 +71,8 @@ const Launches = (props: RouteComponentProps) => {
 
   return (
     <MainLayout>
+      {/* TODO Title should be part of default page layout */}
+      <h3>Launches</h3>
       {data?.pages?.map((page) => {
         return page?.data?.docs?.map((launch) => (
           <LaunchesItemCard data={launch} key={launch.id} />

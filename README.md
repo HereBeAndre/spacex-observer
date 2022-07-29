@@ -6,3 +6,4 @@
 4. Implement `ScrollToTop` component and add it into Launches page
 5. Ideally, remove as much inline style as possible
 6. For all SpaceX **query** requests, select only useful fields
+7. Set default height for all components to avoid shift when async data is being loaded

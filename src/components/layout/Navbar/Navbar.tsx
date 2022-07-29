@@ -9,11 +9,11 @@ interface INavbarProps {
 
 const Navbar: React.FC<INavbarProps> = ({ routes, className, children }) => {
   return (
-    <nav className={className}>
+    <nav className={className} data-testid="navbar">
       {children}
-      {Object.entries(routes).map((route) => (
-        <Link to={route[1]} key={route[0]}>
-          {route[0]}
+      {Object.entries(routes).map(([key, path]) => (
+        <Link to={path} key={key}>
+          {key}
         </Link>
       ))}
     </nav>

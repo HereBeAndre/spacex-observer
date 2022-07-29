@@ -73,10 +73,10 @@ describe('<Button />', () => {
       history: { navigate: reachRouterNavigate },
     } = renderWithRouter(<App />);
 
-    expect(screen.getByText(/upcoming Launches/i)).toBeInTheDocument();
+    expect(screen.getByText(/upcoming launches/i)).toBeInTheDocument();
     // with reach-router we don't need to simulate a click event, we can just transition
     // to the page using the navigate function returned from the history object.
     await reachRouterNavigate(APP_ROUTES.LAUNCHES);
-    expect(screen.getByText(/launches Page/i)).toBeInTheDocument();
+    expect(screen.getByText(/Launches/)).toBeInTheDocument();
   });
 });
