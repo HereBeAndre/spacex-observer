@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
@@ -6,16 +6,15 @@ import { RouteComponentProps } from '@reach/router';
 import axios from 'axios';
 
 import { ApiEndpoints, BASE_URL } from 'api/urls';
-import { ILaunchQuery, ILaunchQueryPopulated } from 'schemas/launch_d';
+import { ILaunchQuery } from 'schemas/launch_d';
 
 import MainLayout from 'components/layout/MainLayout/MainLayout';
+import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 
 // TODO Refactor component
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
-
-  const [launchesData, setLaunchesData] = useState<ILaunchQueryPopulated[]>([]);
 
   const {
     status,
@@ -29,7 +28,7 @@ const Launches = (props: RouteComponentProps) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ['projects'],
+    ['launches'],
     async ({ pageParam = 1 }) => {
       const res = await axios.post<ILaunchQuery>(
         `${BASE_URL}v5/${ApiEndpoints.QUERY_UPCOMING_LAUNCHES}`,
@@ -39,8 +38,6 @@ const Launches = (props: RouteComponentProps) => {
           },
         },
       );
-      const freshFetchedLaunches = res?.data?.docs || [];
-      setLaunchesData((prevFetchedLaunches) => [...prevFetchedLaunches, ...freshFetchedLaunches]);
       return res;
     },
     {
@@ -57,9 +54,11 @@ const Launches = (props: RouteComponentProps) => {
 
   return (
     <MainLayout>
-      {launchesData.map((launch) => (
-        <p key={launch.id}>{launch.name}</p>
-      ))}
+      {data?.pages?.map((page) => {
+        return page?.data?.docs?.map((launch) => (
+          <LaunchesItemCard data={launch} key={launch.id} />
+        ));
+      })}
       <button
         style={{ cursor: !hasNextPage || isFetchingNextPage ? 'not-allowed' : 'pointer' }}
         ref={ref}
