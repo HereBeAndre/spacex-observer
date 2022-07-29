@@ -11,7 +11,7 @@ const ImageLogo: React.FC<IImageLogoProps> = ({ src, alt, customStyle }) => (
     data-testid="image-logo"
     src={src || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'}
     alt={alt}
-    style={{ maxWidth: '180px', ...customStyle }}
+    style={{ maxHeight: '180px', ...customStyle }}
   />
 );
 
