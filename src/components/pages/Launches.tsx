@@ -10,12 +10,12 @@ import { ILaunchQuery } from 'schemas/launch_d';
 
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
-
-// TODO Refactor component
+// TODO: Implement component which handles isFetching and error metadata, then use it in other components
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
 
+  // TODO Move query in ad hoc file - part of API requests refactoring topic
   const {
     status,
     data,
@@ -59,14 +59,8 @@ const Launches = (props: RouteComponentProps) => {
           <LaunchesItemCard data={launch} key={launch.id} />
         ));
       })}
-      <button
-        style={{ cursor: !hasNextPage || isFetchingNextPage ? 'not-allowed' : 'pointer' }}
-        ref={ref}
-        onClick={() => fetchNextPage()}
-        disabled={!hasNextPage || isFetchingNextPage}
-      >
-        Fetch more
-      </button>
+      {/* TODO Replace 'Loading...' string with something nicer */}
+      <div ref={ref}>{isFetching && 'Loading...'}</div>
     </MainLayout>
   );
 };

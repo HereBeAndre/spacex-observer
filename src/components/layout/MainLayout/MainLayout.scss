@@ -2,9 +2,13 @@
 
 #main-layout {
   min-height: 100vh;
+  max-width: 100vw;
 
   #inner-layout {
     @include display(flex, '', '', row);
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 
     .main-content__container {
       transition: margin-left 0.5s;

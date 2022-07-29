@@ -76,7 +76,7 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
         {/* <Card title="Facilities"></Card>
         <Card title="Starlink"></Card> */}
       </Grid>
-      <div style={{ maxWidth: '1200px', margin: '2rem auto 0' }}>
+      <div style={{ margin: '2rem auto 0' }}>
         <h3>Upcoming Launches</h3>
         {upcomingLaunches?.docs?.map((launch) => (
           <LaunchesItemCard data={launch} key={launch.id} />
