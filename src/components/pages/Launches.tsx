@@ -10,6 +10,9 @@ import { ILaunchQuery } from 'schemas/launch_d';
 
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
+
+import { areArgsTruthy } from 'utils/functions';
+
 // TODO: Implement component which handles isFetching and error metadata, then use it in other components
 
 const Launches = (props: RouteComponentProps) => {
@@ -35,6 +38,20 @@ const Launches = (props: RouteComponentProps) => {
         {
           options: {
             page: pageParam,
+            limit: 5,
+            sort: {
+              date_unix: 'asc',
+            },
+            populate: [
+              {
+                path: 'rocket',
+                select: { name: 1 },
+              },
+              {
+                path: 'launchpad',
+                select: { name: 1 },
+              },
+            ],
           },
         },
       );
@@ -60,7 +77,7 @@ const Launches = (props: RouteComponentProps) => {
         ));
       })}
       {/* TODO Replace 'Loading...' string with something nicer */}
-      <div ref={ref}>{isFetching && 'Loading...'}</div>
+      {areArgsTruthy(hasNextPage) ? <div ref={ref}>{isFetching && 'Loading...'}</div> : null}
     </MainLayout>
   );
 };

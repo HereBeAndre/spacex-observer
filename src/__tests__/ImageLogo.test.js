@@ -53,7 +53,7 @@ describe('<Image Logo />', () => {
     act(() => {
       render(<ImageLogo />);
     });
-    expect(screen.getByTestId('image-logo')).toHaveStyle('max-width: 180px');
+    expect(screen.getByTestId('image-logo')).toHaveStyle('max-height: 180px');
   });
 
   it('Expects default max-width to get overridden if one is passed in via customStyle prop', () => {
