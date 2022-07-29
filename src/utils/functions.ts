@@ -49,3 +49,5 @@ export const dateFormatter = (date?: number | string, format: string = 'MMMM D Y
   date && moment(date).format(format);
 
 export const areArgsTruthy = (...args: any[]) => args.every(Boolean);
+
+export const buildUrl = (url: string[]) => url.join('/');
