@@ -13,7 +13,7 @@ import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCar
 import Button from 'components/shared/Button/Button';
 import { APP_ROUTES } from 'components/routes/routes';
 
-import { getNestedObjectPropertyByPathName } from 'utils/functions';
+import { getNestedObjectPropertyByPathName, throwError } from 'utils/functions';
 
 import './Dashboard.scss';
 
@@ -28,17 +28,39 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
   const {
     status,
     data: nextLaunchData,
-    error,
+    isError: isNextLaunchError,
+    error: nextLaunchError,
     isFetching,
   } = getLaunch('nextLaunch', ApiEndpoints.NEXT_LAUNCH);
 
   // TODO: Use metadata from response in file
-  const { data: latestLaunchData } = getLaunch('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
+  const {
+    data: latestLaunchData,
+    isError: isLatestLaunchError,
+    error: latestLaunchError,
+  } = getLaunch('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
 
   // TODO: Use metadata from response in file
-  const { data: upcomingLaunches } = getFiveUpcomingLaunches();
+  const {
+    data: upcomingLaunches,
+    isError: isFiveUpcomingLaunchesError,
+    error: fiveUpcomingLaunchesError,
+  } = getFiveUpcomingLaunches();
 
   const onButtonClick = () => navigate!(APP_ROUTES.LAUNCHES);
+
+  // TODO TECH-DEBT refactor - DRY violated
+  if (isNextLaunchError) {
+    throwError(nextLaunchError);
+  }
+
+  if (isLatestLaunchError) {
+    throwError(latestLaunchError);
+  }
+
+  if (isFiveUpcomingLaunchesError) {
+    throwError(fiveUpcomingLaunchesError);
+  }
 
   return (
     <MainLayout>
