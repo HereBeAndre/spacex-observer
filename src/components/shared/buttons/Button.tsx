@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MouseEventHandler } from 'react';
 
 import './Button.scss';
 
@@ -17,7 +17,7 @@ const VARIANTS = {
 
 interface IButtonProps {
   variant: keyof typeof VARIANTS;
-  onClick: () => void;
+  onClick: MouseEventHandler<HTMLButtonElement>;
   text: string;
   width?: string;
   height?: string;
