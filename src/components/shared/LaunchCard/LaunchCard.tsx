@@ -1,21 +1,16 @@
 import React from 'react';
 
-import { TSpaceXResponseStatus } from 'schemas/api_d';
 import { ILaunch } from 'schemas/launch_d';
 
 import { dateFormatter } from 'utils/functions';
 
-import Card from '../Card/Card';
-import ImageLogo from '../ImageLogo/ImageLogo';
+import Card, { ICardProps } from 'components/shared/Card/Card';
+import ImageLogo from 'components/shared/ImageLogo/ImageLogo';
 
 import './LaunchCard.scss';
 
-export interface ILaunchCardProps<T> {
+export interface ILaunchCardProps<T> extends ICardProps {
   data?: T;
-  title: string;
-  requestStatus?: TSpaceXResponseStatus;
-  requestError?: unknown;
-  isLoading?: boolean;
 }
 
 /* <LaunchCard /> component is a wrapper for <Card /> component and it is
@@ -28,7 +23,13 @@ const LaunchCard = <T extends ILaunch>({
   isLoading = false,
 }: ILaunchCardProps<T>) => {
   return (
-    <Card title={title} {...{ requestStatus, requestError, isLoading }}>
+    <Card
+      title={title}
+      requestStatus={requestStatus}
+      requestError={requestError}
+      isLoading={isLoading}
+      onClick={() => console.log('Fetch mission data')}
+    >
       <div className="launchcard-outer-div">
         <div className="launchcard-inner-div">
           <div className="launchcard-inner-content">

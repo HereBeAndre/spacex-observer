@@ -26,11 +26,11 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
 
   // TODO: Use metadata from response in file
   const {
-    status,
+    status: nextLaunchRequestStatus,
     data: nextLaunchData,
     isError: isNextLaunchError,
     error: nextLaunchError,
-    isFetching,
+    isFetching: isNextLaunchFetching,
   } = getLaunch('nextLaunch', ApiEndpoints.NEXT_LAUNCH);
 
   // TODO: Use metadata from response in file
@@ -38,6 +38,7 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
     data: latestLaunchData,
     isError: isLatestLaunchError,
     error: latestLaunchError,
+    isFetching: isLatestLaunchFetching,
   } = getLaunch('latestLaunch', ApiEndpoints.LATEST_LAUNCH);
 
   // TODO: Use metadata from response in file
@@ -45,6 +46,7 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
     data: upcomingLaunches,
     isError: isFiveUpcomingLaunchesError,
     error: fiveUpcomingLaunchesError,
+    isFetching: isFiveUpcomingLaunchesFetching,
   } = getFiveUpcomingLaunches();
 
   const onButtonClick = () => navigate!(APP_ROUTES.LAUNCHES);
@@ -66,12 +68,20 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
     <MainLayout>
       <Countdown
         unixTime={getNestedObjectPropertyByPathName(nextLaunchData, ['date_unix'])}
-        isLoading={isFetching}
+        isLoading={isNextLaunchFetching}
         hasTitle
       />
       <Grid>
-        <LaunchCard title="Next Launch" data={nextLaunchData}></LaunchCard>
-        <LaunchCard title="Previous Launch" data={latestLaunchData}></LaunchCard>
+        <LaunchCard
+          title="Next Launch"
+          data={nextLaunchData}
+          isLoading={isNextLaunchFetching}
+        ></LaunchCard>
+        <LaunchCard
+          title="Previous Launch"
+          data={latestLaunchData}
+          isLoading={isLatestLaunchFetching}
+        ></LaunchCard>
         {/* TODO Implement Facilities and Starlink */}
         {/* <Card title="Facilities"></Card>
         <Card title="Starlink"></Card> */}
@@ -79,7 +89,11 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
       <div style={{ margin: '2rem auto 0' }}>
         <h3>Upcoming Launches</h3>
         {upcomingLaunches?.docs?.map((launch) => (
-          <LaunchesItemCard data={launch} key={launch.id} />
+          <LaunchesItemCard
+            data={launch}
+            key={launch.id}
+            isLoading={isFiveUpcomingLaunchesFetching}
+          />
         ))}
         <Button variant="primary" onClick={onButtonClick} text="Show Launches" />
       </div>

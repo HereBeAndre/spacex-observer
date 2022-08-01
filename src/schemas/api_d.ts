@@ -1,1 +1,1 @@
-export type TSpaceXResponseStatus = 'idle' | 'error' | 'loading' | 'success';
+export type TSpaceXResponseStatus = 'error' | 'loading' | 'success';

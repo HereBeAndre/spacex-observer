@@ -57,7 +57,7 @@ describe('<Button />', () => {
     expect(screen.getByTestId('primary-btn')).toHaveStyle('background-color: red');
   });
 
-  it('Expects button to call onClick callback function once', () => {
+  it('Expects onClick callback function to be invoked once', () => {
     const mockedFn = jest.fn();
     act(() => {
       render(<Button onClick={mockedFn} />);
