@@ -4,10 +4,7 @@ import { TDuration } from 'schemas/utils_d';
 
 import { MILLISECONDS_INTERVAL } from './constants';
 
-export function typeGuardFunction<T>(object: T, key: string): boolean {
-  return key in object;
-}
-
+// START ~ GETTER FUNCTIONS
 const getAbsoluteValue = (num: number) => Math.abs(num);
 
 // TODO TECH-DEBT solution has room for improvement
@@ -35,6 +32,11 @@ export function getNestedObjectPropertyByPathName<T extends unknown>(
     nestedObject,
   );
 }
+// END ~ GETTER FUNCTIONS
+
+// START ~ FORMATTERS
+export const dateFormatter = (date?: number | string, format: string = 'MMMM D YYYY, h:mm:ss A') =>
+  date && moment(date).format(format);
 
 // TODO Might be useless if better moment solution for countdown is implemented
 // USAGE ~ Format countdown numbers when they're less than 9
@@ -45,12 +47,15 @@ export function formatDateNumber(input: number): string | number {
   return input;
 }
 
-export const dateFormatter = (date?: number | string, format: string = 'MMMM D YYYY, h:mm:ss A') =>
-  date && moment(date).format(format);
+export const buildUrl = (url: string[]) => url.join('/');
+// END ~ FORMATTERS
+
+// START ~ GUARDS
+export function typeGuardFunction<T>(object: T, key: string): boolean {
+  return key in object;
+}
 
 export const areArgsTruthy = (...args: any[]) => args.every(Boolean);
-
-export const buildUrl = (url: string[]) => url.join('/');
 
 // USAGE ~ Throw errors which are then visible in Sentry
 export const throwError = (error: unknown) => {
@@ -58,3 +63,8 @@ export const throwError = (error: unknown) => {
     throw new Error(error.message);
   }
 };
+// END ~ GUARDS
+
+export function conditionalRender<T>(condition: boolean, component: T): T | null {
+  return condition ? component : null;
+}
