@@ -5,7 +5,7 @@ import { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
 
 import App from '../App';
-import Button from '../components/shared/Button/Button';
+import Button from '../components/shared/buttons/Button';
 import { APP_ROUTES } from '../components/routes/routes';
 
 // TODO: Move to dedicated file / folder

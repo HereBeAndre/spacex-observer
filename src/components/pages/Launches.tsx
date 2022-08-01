@@ -10,6 +10,7 @@ import { ILaunchQuery } from 'schemas/launch_d';
 
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
+import ScrollTop from 'components/shared/buttons/ScrollToTop/ScrollTop';
 
 import { areArgsTruthy, throwError } from 'utils/functions';
 
@@ -85,6 +86,7 @@ const Launches = (props: RouteComponentProps) => {
       })}
       {/* TODO Replace 'Loading...' string with something nicer */}
       {areArgsTruthy(hasNextPage) ? <div ref={ref}>{isFetching && 'Loading...'}</div> : null}
+      <ScrollTop />
     </MainLayout>
   );
 };

@@ -10,7 +10,7 @@ import LaunchCard from 'components/shared/LaunchCard/LaunchCard';
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import Countdown from 'components/shared/Countdown/Countdown';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
-import Button from 'components/shared/Button/Button';
+import Button from 'components/shared/buttons/Button';
 import { APP_ROUTES } from 'components/routes/routes';
 
 import { getNestedObjectPropertyByPathName, throwError } from 'utils/functions';
