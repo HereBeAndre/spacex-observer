@@ -12,7 +12,7 @@ import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 import ScrollTop from 'components/shared/buttons/ScrollToTop/ScrollTop';
 
-import { areArgsTruthy, throwError } from 'utils/functions';
+import { areArgsTruthy, conditionalRender, throwError } from 'utils/functions';
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
@@ -85,7 +85,10 @@ const Launches = (props: RouteComponentProps) => {
         ));
       })}
       {/* TODO Replace 'Loading...' string with something nicer */}
-      {areArgsTruthy(hasNextPage) ? <div ref={ref}>{isFetching && 'Loading...'}</div> : null}
+      {conditionalRender(
+        areArgsTruthy(hasNextPage),
+        <div ref={ref}>{isFetching && 'Loading...'}</div>,
+      )}
       <ScrollTop />
     </MainLayout>
   );
