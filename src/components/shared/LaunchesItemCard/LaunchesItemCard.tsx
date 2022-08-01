@@ -3,9 +3,9 @@ import React from 'react';
 import { ILaunchQueryPopulated } from 'schemas/launch_d';
 import { dateFormatter } from 'utils/functions';
 
-import Card from '../Card/Card';
-import ImageLogo from '../ImageLogo/ImageLogo';
-import { ILaunchCardProps } from '../LaunchCard/LaunchCard';
+import Card from 'components/shared/Card/Card';
+import ImageLogo from 'components/shared/ImageLogo/ImageLogo';
+import { ILaunchCardProps } from 'components/shared/LaunchCard/LaunchCard';
 
 import './LaunchesItemCard.scss';
 
@@ -20,11 +20,10 @@ const LaunchesItemCard = <T extends ILaunchQueryPopulated>({
   return (
     <Card
       cardStyleContentId="launches-item-card__main-card"
-      {...{
-        requestStatus,
-        requestError,
-        isLoading,
-      }}
+      requestStatus={requestStatus}
+      requestError={requestError}
+      isLoading={isLoading}
+      onClick={() => console.log('Fetch mission data')}
     >
       <div>
         <h4>Mission Patch</h4>

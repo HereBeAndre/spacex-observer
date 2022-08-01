@@ -3,6 +3,10 @@
   border-radius: 15px;
   background: rgba(0, 0, 0, 0.5);
 
+  &.clickable {
+    cursor: pointer;
+  }
+
   .card-content__style {
     // flex-flow: column nowrap; TODO: Check here
     width: 100%;

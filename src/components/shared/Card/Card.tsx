@@ -1,28 +1,45 @@
-import React, { ReactNode } from 'react';
-import { typeGuardFunction } from 'utils/functions';
+import React, { MouseEventHandler, ReactNode } from 'react';
+
+import { TSpaceXResponseStatus } from 'schemas/api_d';
+
+import { areArgsTruthy } from 'utils/functions';
 
 import './Card.scss';
 
-interface ICardProps {
+export interface ICardProps {
   title?: string;
   children?: ReactNode;
-  [x: string]: any;
+  onClick?: MouseEventHandler<HTMLDivElement>;
   cardStyleContainerId?: string;
   cardStyleContentId?: string;
+  requestStatus?: TSpaceXResponseStatus;
+  requestError?: unknown;
+  isLoading?: boolean;
+  [x: string]: any;
 }
 
 const Card: React.FC<ICardProps> = ({
   title,
   children,
+  onClick,
   cardStyleContainerId,
   cardStyleContentId,
+  requestStatus,
+  requestError,
+  isLoading,
   ...rest
 }) => {
   return (
-    <div className="card__style" {...rest} id={cardStyleContainerId}>
-      {title && <h3>{title}</h3>}
+    <div
+      className={`card__style ${onClick && 'clickable'}`}
+      id={cardStyleContainerId}
+      onClick={onClick}
+      data-testid="card"
+      {...rest}
+    >
+      {areArgsTruthy(title) ? <h3>{title}</h3> : null}
       <div className="card-content__style" id={cardStyleContentId}>
-        {typeGuardFunction(rest, 'isLoading') && rest.isLoading ? <p>Loading...</p> : children}
+        {areArgsTruthy(isLoading) ? <p>Loading...</p> : children}
       </div>
     </div>
   );
