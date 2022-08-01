@@ -11,9 +11,7 @@ import { ILaunchQuery } from 'schemas/launch_d';
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 
-import { areArgsTruthy } from 'utils/functions';
-
-// TODO: Implement component which handles isFetching and error metadata, then use it in other components
+import { areArgsTruthy, throwError } from 'utils/functions';
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
@@ -22,6 +20,7 @@ const Launches = (props: RouteComponentProps) => {
   const {
     status,
     data,
+    isError,
     error,
     isFetching,
     isFetchingNextPage,
@@ -68,6 +67,12 @@ const Launches = (props: RouteComponentProps) => {
       fetchNextPage();
     }
   }, [inView]);
+
+  // TODO: Implement component which handles isFetching and error metadata in UI, then use it in other components as well
+
+  if (isError) {
+    throwError(error);
+  }
 
   return (
     <MainLayout>

@@ -51,3 +51,10 @@ export const dateFormatter = (date?: number | string, format: string = 'MMMM D Y
 export const areArgsTruthy = (...args: any[]) => args.every(Boolean);
 
 export const buildUrl = (url: string[]) => url.join('/');
+
+// USAGE ~ Throw errors which are then visible in Sentry
+export const throwError = (error: unknown) => {
+  if (error instanceof Error) {
+    throw new Error(error.message);
+  }
+};
