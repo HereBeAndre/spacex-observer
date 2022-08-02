@@ -10,7 +10,7 @@ import { ILaunchQuery } from 'schemas/launch_d';
 
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
-import ScrollTop from 'components/shared/buttons/ScrollToTop/ScrollTop';
+import ScrollTop from 'components/shared/buttons/ScrollTop/ScrollTop';
 
 import { areArgsTruthy, conditionalRender, throwError } from 'utils/functions';
 
