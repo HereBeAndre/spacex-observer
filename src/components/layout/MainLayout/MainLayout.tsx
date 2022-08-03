@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Layout } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
-import { APP_ROUTES } from 'components/routes/routes';
+import { NAVBAR_ROUTES } from 'components/routes/routes';
 import Navbar from 'components/layout/Navbar/Navbar';
 import Sidebar from 'components/layout/Sidebar/Sidebar';
 
@@ -19,7 +19,7 @@ const MainLayout: React.FC = ({ children }) => {
   return (
     <Layout id="main-layout">
       <Header>
-        <Navbar routes={APP_ROUTES} className="navbar__style">
+        <Navbar routes={NAVBAR_ROUTES} className="navbar__style">
           <a onClick={handleOpenSidebar}>
             <SearchOutlined />
           </a>

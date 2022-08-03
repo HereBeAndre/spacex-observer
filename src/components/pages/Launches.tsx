@@ -11,6 +11,7 @@ import { ILaunchQuery } from 'schemas/launch_d';
 import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 import ScrollTop from 'components/shared/buttons/ScrollTop/ScrollTop';
+import { navigateTo } from 'components/routes/routes';
 
 import { areArgsTruthy, conditionalRender, throwError } from 'utils/functions';
 
@@ -33,28 +34,25 @@ const Launches = (props: RouteComponentProps) => {
   } = useInfiniteQuery(
     ['launches'],
     async ({ pageParam = 1 }) => {
-      const res = await axios.post<ILaunchQuery>(
-        `${BASE_URL}v5/${ApiEndpoints.QUERY_UPCOMING_LAUNCHES}`,
-        {
-          options: {
-            page: pageParam,
-            limit: 5,
-            sort: {
-              date_unix: 'asc',
-            },
-            populate: [
-              {
-                path: 'rocket',
-                select: { name: 1 },
-              },
-              {
-                path: 'launchpad',
-                select: { name: 1 },
-              },
-            ],
+      const res = await axios.post<ILaunchQuery>(`${BASE_URL}v5/${ApiEndpoints.QUERY_LAUNCHES}`, {
+        options: {
+          page: pageParam,
+          limit: 5,
+          sort: {
+            date_unix: 'asc',
           },
+          populate: [
+            {
+              path: 'rocket',
+              select: { name: 1 },
+            },
+            {
+              path: 'launchpad',
+              select: { name: 1 },
+            },
+          ],
         },
-      );
+      });
       return res;
     },
     {
@@ -81,7 +79,11 @@ const Launches = (props: RouteComponentProps) => {
       <h3>Launches</h3>
       {data?.pages?.map((page) => {
         return page?.data?.docs?.map((launch) => (
-          <LaunchesItemCard data={launch} key={launch.id} />
+          <LaunchesItemCard
+            data={launch}
+            key={launch.id}
+            onClick={() => navigateTo(['launches'], launch.id)}
+          />
         ));
       })}
       {/* TODO Replace 'Loading...' string with something nicer */}

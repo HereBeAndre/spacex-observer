@@ -13,6 +13,7 @@ interface ILaunchesItemCardProps<T> extends Omit<ILaunchCardProps<T>, 'title'> {
 
 const LaunchesItemCard = <T extends ILaunchQueryPopulated>({
   data,
+  onClick,
   requestStatus,
   requestError,
   isLoading = false,
@@ -23,7 +24,7 @@ const LaunchesItemCard = <T extends ILaunchQueryPopulated>({
       requestStatus={requestStatus}
       requestError={requestError}
       isLoading={isLoading}
-      onClick={() => console.log('Fetch mission data')}
+      onClick={onClick}
     >
       <div>
         <h4>Mission Patch</h4>

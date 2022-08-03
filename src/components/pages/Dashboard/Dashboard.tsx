@@ -11,7 +11,7 @@ import MainLayout from 'components/layout/MainLayout/MainLayout';
 import Countdown from 'components/shared/Countdown/Countdown';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 import Button from 'components/shared/buttons/Button';
-import { APP_ROUTES } from 'components/routes/routes';
+import { APP_ROUTES, navigateTo } from 'components/routes/routes';
 
 import { getNestedObjectPropertyByPathName, throwError } from 'utils/functions';
 
@@ -49,7 +49,11 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
     isFetching: isFiveUpcomingLaunchesFetching,
   } = getFiveUpcomingLaunches();
 
-  const onButtonClick = () => navigate!(APP_ROUTES.LAUNCHES);
+  const onClickShowLaunchesButton = () => navigateTo([APP_ROUTES.launches]);
+
+  const onClickNextLaunchCard = () => navigateTo([APP_ROUTES.launches], nextLaunchData?.id);
+
+  const onClickNextPreviousCard = () => navigateTo([APP_ROUTES.launches], latestLaunchData?.id);
 
   // TODO TECH-DEBT refactor - DRY violated
   if (isNextLaunchError) {
@@ -75,11 +79,13 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
         <LaunchCard
           title="Next Launch"
           data={nextLaunchData}
+          onClick={onClickNextLaunchCard}
           isLoading={isNextLaunchFetching}
         ></LaunchCard>
         <LaunchCard
           title="Previous Launch"
           data={latestLaunchData}
+          onClick={onClickNextPreviousCard}
           isLoading={isLatestLaunchFetching}
         ></LaunchCard>
         {/* TODO Implement Facilities and Starlink */}
@@ -92,10 +98,11 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
           <LaunchesItemCard
             data={launch}
             key={launch.id}
+            onClick={() => navigateTo([APP_ROUTES.launches], launch.id)}
             isLoading={isFiveUpcomingLaunchesFetching}
           />
         ))}
-        <Button variant="primary" onClick={onButtonClick} text="Show Launches" />
+        <Button variant="primary" onClick={onClickShowLaunchesButton} text="Show Launches" />
       </div>
     </MainLayout>
   );
