@@ -20,7 +20,7 @@ import './Dashboard.scss';
 /* TODO! Prevent react-query from fetching same data over and over on Dashboard re-render
 https://tanstack.com/query/v4/docs/guides/important-defaults */
 
-const Dashboard = ({ navigate }: RouteComponentProps) => {
+const Dashboard = (props: RouteComponentProps) => {
   // TODO: May be useless?
   // const queryClient = useQueryClient();
 
@@ -55,7 +55,7 @@ const Dashboard = ({ navigate }: RouteComponentProps) => {
 
   const onClickNextPreviousCard = () => navigateTo([APP_ROUTES.launches], latestLaunchData?.id);
 
-  // TODO TECH-DEBT refactor - DRY violated
+  // TECH-DEBT refactor - DRY violated
   if (isNextLaunchError) {
     throwError(nextLaunchError);
   }

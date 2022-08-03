@@ -7,7 +7,7 @@ const instance = axios.create({
   baseURL: BASE_URL,
 });
 
-// TODO TECH-DEBT Not DRY
+// TECH-DEBT Not DRY
 // https://www.delftstack.com/howto/typescript/axios-typescript/
 
 // START ~ react-query hooks
