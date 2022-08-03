@@ -1,15 +1,18 @@
 import React from 'react';
 import { Link } from '@reach/router';
-import { APP_ROUTES } from 'components/routes/routes';
+
+import { NAVBAR_ROUTES } from 'components/routes/routes';
+
+import './Navbar.scss';
 
 interface INavbarProps {
-  routes: typeof APP_ROUTES;
+  routes: typeof NAVBAR_ROUTES;
   className?: string;
 }
 
 const Navbar: React.FC<INavbarProps> = ({ routes, className, children }) => {
   return (
-    <nav className={className} data-testid="navbar">
+    <nav className={`navbar ${className}`} data-testid="navbar">
       {children}
       {Object.entries(routes).map(([key, path]) => (
         <Link to={path} key={key}>

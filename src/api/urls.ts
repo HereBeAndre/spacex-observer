@@ -8,6 +8,6 @@ export enum ApiVersion {
 export enum ApiEndpoints {
   NEXT_LAUNCH = 'launches/next',
   LATEST_LAUNCH = 'launches/LATEST',
-  QUERY_UPCOMING_LAUNCHES = 'launches/query',
+  QUERY_LAUNCHES = 'launches/query',
   UPCOMING_LAUNCHES = 'launches/upcoming',
 }

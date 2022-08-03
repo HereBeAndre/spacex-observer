@@ -19,7 +19,7 @@ export const postLaunchesQuery = <T>(
   });
 
 export const getFiveUpcomingLaunches = () =>
-  postLaunchesQuery('fiveUpcomingLaunches', ApiEndpoints.QUERY_UPCOMING_LAUNCHES, {
+  postLaunchesQuery('fiveUpcomingLaunches', ApiEndpoints.QUERY_LAUNCHES, {
     query: { upcoming: true },
     options: {
       limit: 5,
@@ -36,5 +36,16 @@ export const getFiveUpcomingLaunches = () =>
           select: { name: 1 },
         },
       ],
+    },
+  });
+
+export const getLaunchQuery = (id: number) =>
+  postLaunchesQuery(`Launch #${id}`, ApiEndpoints.QUERY_LAUNCHES, {
+    query: {
+      flight_number: id,
+    },
+    options: {
+      limit: 1,
+      // TODO Populate with additional info to enrich view page
     },
   });

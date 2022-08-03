@@ -18,6 +18,7 @@ specifically designed to display NEXT and PREVIOUS launch data */
 const LaunchCard = <T extends ILaunch>({
   data,
   title,
+  onClick,
   requestStatus,
   requestError,
   isLoading = false,
@@ -28,7 +29,7 @@ const LaunchCard = <T extends ILaunch>({
       requestStatus={requestStatus}
       requestError={requestError}
       isLoading={isLoading}
-      onClick={() => console.log('Fetch mission data')}
+      onClick={onClick}
     >
       <div className="launchcard-outer-div">
         <div className="launchcard-inner-div">

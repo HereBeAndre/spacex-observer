@@ -48,6 +48,8 @@ export function formatDateNumber(input: number): string | number {
 }
 
 export const buildUrl = (url: string[]) => url.join('/');
+
+export const toString = (x: any): string => x.toString();
 // END ~ FORMATTERS
 
 // START ~ GUARDS
