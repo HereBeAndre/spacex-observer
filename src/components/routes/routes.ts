@@ -3,7 +3,7 @@ import { buildUrl, toString } from 'utils/functions';
 
 export const APP_ROUTES = {
   dashboard: '/',
-  launch: '/launches/:id',
+  launch: '/launches/:launchId',
   launches: '/launches',
 };
 

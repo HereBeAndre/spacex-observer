@@ -7,7 +7,7 @@ import { MILLISECONDS_INTERVAL } from './constants';
 // START ~ GETTER FUNCTIONS
 const getAbsoluteValue = (num: number) => Math.abs(num);
 
-// TODO TECH-DEBT solution has room for improvement
+// TECH-DEBT solution has room for improvement
 export function getDurationInterval(
   unixTime: number,
   unit: DurationInputArg2 = 'milliseconds',

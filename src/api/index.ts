@@ -38,14 +38,3 @@ export const getFiveUpcomingLaunches = () =>
       ],
     },
   });
-
-export const getLaunchQuery = (id: number) =>
-  postLaunchesQuery(`Launch #${id}`, ApiEndpoints.QUERY_LAUNCHES, {
-    query: {
-      flight_number: id,
-    },
-    options: {
-      limit: 1,
-      // TODO Populate with additional info to enrich view page
-    },
-  });
