@@ -24,7 +24,7 @@ describe('<Navbar />', () => {
       render(<Navbar routes={APP_ROUTES} />);
     });
 
-    const navbar = screen.getByTestId('navbar');
+    const navbar = screen.getByTestId('Navbar');
     expect(navbar).toBeInTheDocument();
   });
 
@@ -33,7 +33,7 @@ describe('<Navbar />', () => {
       render(<Navbar routes={APP_ROUTES} className="mock_classname" />);
     });
 
-    const navbar = screen.getByTestId('navbar');
+    const navbar = screen.getByTestId('Navbar');
     expect(navbar).toHaveClass('mock_classname');
   });
 
@@ -42,7 +42,7 @@ describe('<Navbar />', () => {
       render(<Navbar routes={APP_ROUTES} />);
     });
 
-    const navbar = screen.getByTestId('navbar');
+    const navbar = screen.getByTestId('Navbar');
     expect(navbar).toContainElement(screen.getByText(/dashboard/i));
     expect(navbar).toContainElement(screen.getByText(/launches/i));
   });
@@ -56,7 +56,7 @@ describe('<Navbar />', () => {
       );
     });
 
-    const navbar = screen.getByTestId('navbar');
+    const navbar = screen.getByTestId('Navbar');
     const childTitle = screen.getByText(/child title/i);
 
     expect(childTitle).toBeInTheDocument();

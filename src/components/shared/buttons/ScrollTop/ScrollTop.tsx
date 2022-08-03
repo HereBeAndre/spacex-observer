@@ -51,7 +51,6 @@ const ScrollTop: React.FC<IScrollTopProps> = ({
           className={`scroll-top ${className}`}
           onClick={() => scrollToTop(smooth)}
           aria-label="Scroll top"
-          data-testid="scroll-top"
           {...rest}
         >
           <ArrowUpOutlined width={width} height={height} color={color} />

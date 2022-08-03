@@ -71,12 +71,12 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle })
 
   return conditionalRender(
     areArgsTruthy(Object.entries(durationObject).length),
-    <article className="countdown-container" data-testid="countdown">
+    <article className="countdown-container" data-testid="Countdown">
       {/* TODO Ideally title logic should be extracted in ad hoc countdown component -
       smth like LaunchComponent which implements Countdown */}
       {conditionalRender(
         areArgsTruthy(hasTitle),
-        <h3 data-testid="countdown-title">{momentInTime} launch</h3>,
+        <h3 data-testid="CountdownTitle">{momentInTime} launch</h3>,
       )}
       {Object.entries(durationObject).map(([key]) => {
         return (
