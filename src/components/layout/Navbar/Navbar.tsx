@@ -12,7 +12,7 @@ interface INavbarProps {
 
 const Navbar: React.FC<INavbarProps> = ({ routes, className, children }) => {
   return (
-    <nav className={`navbar ${className}`} data-testid="navbar">
+    <nav className={`navbar ${className}`} data-testid="Navbar">
       {children}
       {Object.entries(routes).map(([key, path]) => (
         <Link to={path} key={key}>

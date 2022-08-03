@@ -54,7 +54,7 @@ describe('<Button />', () => {
     act(() => {
       render(<Button variant="primary" />);
     });
-    expect(screen.getByTestId('primary-btn')).toHaveStyle('background-color: red');
+    expect(screen.getByTestId('primaryBtn')).toHaveStyle('background-color: red');
   });
 
   it('Expects onClick callback function to be invoked once', () => {
@@ -76,7 +76,7 @@ describe('<Button />', () => {
     expect(screen.getByText(/upcoming launches/i)).toBeInTheDocument();
     // with reach-router we don't need to simulate a click event, we can just transition
     // to the page using the navigate function returned from the history object.
-    await reachRouterNavigate(APP_ROUTES.LAUNCHES);
+    await reachRouterNavigate(APP_ROUTES.launches);
     expect(screen.getByText(/Launches/)).toBeInTheDocument();
   });
 });

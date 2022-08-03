@@ -30,8 +30,8 @@ describe('<Countdown />', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    expect(getByTestId('countdown')).toBeInTheDocument();
-    expect(getByTestId('countdown')).not.toBeEmptyDOMElement();
+    expect(getByTestId('Countdown')).toBeInTheDocument();
+    expect(getByTestId('Countdown')).not.toBeEmptyDOMElement();
   });
 
   it('Should render Loading...', () => {
@@ -47,7 +47,7 @@ describe('<Countdown />', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    const countdownComponent = getByTestId('countdown');
+    const countdownComponent = getByTestId('Countdown');
 
     expect(countdownComponent).toBeInTheDocument();
     expect(countdownComponent).not.toBeEmptyDOMElement();
@@ -60,6 +60,6 @@ describe('<Countdown />', () => {
       jest.advanceTimersByTime(1500);
     });
 
-    expect(getByTestId('countdown-title')).toBeInTheDocument();
+    expect(getByTestId('CountdownTitle')).toBeInTheDocument();
   });
 });

@@ -8,7 +8,7 @@ interface IImageLogoProps {
 
 const ImageLogo: React.FC<IImageLogoProps> = ({ src, alt, customStyle }) => (
   <img
-    data-testid="image-logo"
+    data-testid="ImageLogo"
     src={src || 'https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg'}
     alt={alt}
     style={{ maxHeight: '180px', ...customStyle }}
