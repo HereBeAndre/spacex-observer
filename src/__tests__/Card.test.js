@@ -24,7 +24,7 @@ describe('<Card />', () => {
       render(<Card />);
     });
 
-    const card = screen.getByTestId('card');
+    const card = screen.getByTestId('Card');
     expect(card).toBeInTheDocument();
     expect(card).toHaveClass('card__style');
   });
@@ -35,7 +35,7 @@ describe('<Card />', () => {
       render(<Card onClick={mockedFn} />);
     });
 
-    const card = screen.getByTestId('card');
+    const card = screen.getByTestId('Card');
     expect(card).toHaveClass('clickable');
   });
 
@@ -52,7 +52,7 @@ describe('<Card />', () => {
     act(() => {
       render(<Card onClick={mockedFn} />);
     });
-    const card = screen.getByTestId('card');
+    const card = screen.getByTestId('Card');
     fireEvent.click(card);
     expect(mockedFn).toHaveBeenCalledTimes(1);
   });
@@ -74,7 +74,7 @@ describe('<Card />', () => {
       );
     });
 
-    const card = screen.getByTestId('card');
+    const card = screen.getByTestId('Card');
 
     expect(card).toBeInTheDocument();
     expect(card).not.toBeEmptyDOMElement();
