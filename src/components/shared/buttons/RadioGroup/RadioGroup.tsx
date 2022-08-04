@@ -13,6 +13,7 @@ interface IRadioGroupProps {
   value: string;
   onChange: (e: RadioChangeEvent) => void;
   radioType?: RadioGroupOptionType;
+  className?: string;
 }
 
 const RadioGroup: FunctionComponent<IRadioGroupProps> = ({
@@ -20,8 +21,18 @@ const RadioGroup: FunctionComponent<IRadioGroupProps> = ({
   value,
   onChange,
   radioType = 'button',
+  className = '',
 }) => {
-  return <Radio.Group options={options} onChange={onChange} value={value} optionType={radioType} />;
+  return (
+    <Radio.Group
+      data-testid="RadioGroup"
+      options={options}
+      onChange={onChange}
+      value={value}
+      optionType={radioType}
+      className={className}
+    />
+  );
 };
 
 export default RadioGroup;

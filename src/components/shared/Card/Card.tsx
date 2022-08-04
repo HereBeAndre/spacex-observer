@@ -34,7 +34,7 @@ const Card: React.FC<ICardProps> = ({
       className={`card__style ${onClick && 'clickable'}`}
       id={cardStyleContainerId}
       onClick={onClick}
-      data-testid="card"
+      data-testid="Card"
       {...rest}
     >
       {conditionalRender(areArgsTruthy(title), <h3>{title}</h3>)}
