@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
@@ -12,11 +12,18 @@ import MainLayout from 'components/layout/MainLayout/MainLayout';
 import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCard';
 import ScrollTop from 'components/shared/buttons/ScrollTop/ScrollTop';
 import { navigateTo } from 'components/routes/routes';
+import RadioGroup from 'components/shared/buttons/RadioGroup/RadioGroup';
 
 import { areArgsTruthy, conditionalRender, throwError } from 'utils/functions';
+import { SORT_OPTIONS } from 'utils/constants';
+import { RadioChangeEvent } from 'antd';
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
+
+  const [sortValue, setSortValue] = useState<string>(() => SORT_OPTIONS[0].value);
+
+  const onSortChange = ({ target: { value } }: RadioChangeEvent) => setSortValue(value);
 
   // TODO Move query in ad hoc file - part of API requests refactoring topic
   const {
@@ -32,14 +39,14 @@ const Launches = (props: RouteComponentProps) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ['launches'],
+    ['launches', sortValue],
     async ({ pageParam = 1 }) => {
       const res = await axios.post<ILaunchQuery>(`${BASE_URL}v5/${ApiEndpoints.QUERY_LAUNCHES}`, {
         options: {
           page: pageParam,
           limit: 5,
           sort: {
-            date_unix: 'asc',
+            date_unix: sortValue,
           },
           populate: [
             {
@@ -77,6 +84,7 @@ const Launches = (props: RouteComponentProps) => {
     <MainLayout>
       {/* TODO Title should be part of default page layout */}
       <h3>Launches</h3>
+      <RadioGroup options={SORT_OPTIONS} value={sortValue} onChange={onSortChange} />
       {data?.pages?.map((page) => {
         return page?.data?.docs?.map((launch) => (
           <LaunchesItemCard
