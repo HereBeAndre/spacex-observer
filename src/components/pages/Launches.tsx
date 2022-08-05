@@ -5,6 +5,8 @@ import { useInView } from 'react-intersection-observer';
 import { RouteComponentProps } from '@reach/router';
 import axios from 'axios';
 
+import { RadioChangeEvent } from 'antd';
+
 import { ApiEndpoints, BASE_URL } from 'api/urls';
 import { ILaunchQuery } from 'schemas/launch_d';
 
@@ -13,17 +15,29 @@ import LaunchesItemCard from 'components/shared/LaunchesItemCard/LaunchesItemCar
 import ScrollTop from 'components/shared/buttons/ScrollTop/ScrollTop';
 import { navigateTo } from 'components/routes/routes';
 import RadioGroup from 'components/shared/buttons/RadioGroup/RadioGroup';
+import Dropdown from 'components/shared/buttons/Dropdown/Dropdown';
 
-import { areArgsTruthy, conditionalRender, throwError } from 'utils/functions';
-import { SORT_OPTIONS } from 'utils/constants';
-import { RadioChangeEvent } from 'antd';
+import {
+  areArgsTruthy,
+  conditionalRender,
+  getNestedObjectPropertyByPathName,
+  throwError,
+} from 'utils/functions';
+import { LAUNCHES_TYPE_OPTIONS, SORT_OPTIONS } from 'utils/constants';
 
 const Launches = (props: RouteComponentProps) => {
   const { ref, inView } = useInView();
 
-  const [sortValue, setSortValue] = useState<string>(() => SORT_OPTIONS[0].value);
+  const [launchType, setLaunchType] = useState<string>(() =>
+    getNestedObjectPropertyByPathName(LAUNCHES_TYPE_OPTIONS, ['0', 'value']),
+  );
+  const [sortValue, setSortValue] = useState<string>(() =>
+    getNestedObjectPropertyByPathName(SORT_OPTIONS, ['0', 'value']),
+  );
 
   const onSortChange = ({ target: { value } }: RadioChangeEvent) => setSortValue(value);
+
+  const handleDropdownChange = (value: string) => setLaunchType(value);
 
   // TODO Move query in ad hoc file - part of API requests refactoring topic
   const {
@@ -39,14 +53,14 @@ const Launches = (props: RouteComponentProps) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ['launches', sortValue],
+    ['launches', sortValue, launchType],
     async ({ pageParam = 1 }) => {
       const res = await axios.post<ILaunchQuery>(`${BASE_URL}v5/${ApiEndpoints.QUERY_LAUNCHES}`, {
         options: {
           page: pageParam,
           limit: 5,
           sort: {
-            date_unix: sortValue,
+            flight_number: sortValue,
           },
           populate: [
             {
@@ -58,6 +72,9 @@ const Launches = (props: RouteComponentProps) => {
               select: { name: 1 },
             },
           ],
+        },
+        query: {
+          upcoming: launchType === 'upcoming',
         },
       });
       return res;
@@ -75,6 +92,7 @@ const Launches = (props: RouteComponentProps) => {
   }, [inView]);
 
   // TODO: Implement component which handles isFetching and error metadata in UI, then use it in other components as well
+  // SEE HERE https://www.robinwieruch.de/react-higher-order-components/
 
   if (isError) {
     throwError(error);
@@ -84,6 +102,7 @@ const Launches = (props: RouteComponentProps) => {
     <MainLayout>
       {/* TODO Title should be part of default page layout */}
       <h3>Launches</h3>
+      <Dropdown options={LAUNCHES_TYPE_OPTIONS} handleChange={handleDropdownChange} />
       <RadioGroup options={SORT_OPTIONS} value={sortValue} onChange={onSortChange} />
       {data?.pages?.map((page) => {
         return page?.data?.docs?.map((launch) => (
