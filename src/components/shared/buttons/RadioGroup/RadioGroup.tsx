@@ -3,13 +3,13 @@ import React, { FunctionComponent } from 'react';
 import { Radio, RadioChangeEvent } from 'antd';
 import { RadioGroupOptionType } from 'antd/lib/radio';
 
-export interface IRadioGroupOption {
+export interface IOption {
   label: string;
   value: string;
 }
 
 interface IRadioGroupProps {
-  options: Array<IRadioGroupOption>;
+  options: Array<IOption>;
   value: string;
   onChange: (e: RadioChangeEvent) => void;
   radioType?: RadioGroupOptionType;
