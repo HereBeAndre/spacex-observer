@@ -1,8 +1,25 @@
-import moment, { DurationInputArg2 } from 'moment';
+import moment, { DurationInputArg2, Moment } from 'moment';
 
 import { TDuration } from 'schemas/utils_d';
 
 import { MILLISECONDS_INTERVAL } from './constants';
+
+// START ~ GUARDS
+export function typeGuardFunction<T>(object: T, key: string): boolean {
+  return key in object;
+}
+
+export const isEveryArgsTruthy = (...args: any[]) => args.every(Boolean);
+
+export const isSomeArgsTruthy = (...args: any[]) => args.some(Boolean);
+
+// USAGE ~ Throw errors which are then visible in Sentry
+export const throwError = (error: unknown) => {
+  if (error instanceof Error) {
+    throw new Error(error.message);
+  }
+};
+// END ~ GUARDS
 
 // START ~ GETTER FUNCTIONS
 const getAbsoluteValue = (num: number) => Math.abs(num);
@@ -38,6 +55,9 @@ export function getNestedObjectPropertyByPathName<T extends unknown>(
 export const dateFormatter = (date?: number | string, format: string = 'MMMM D YYYY, h:mm:ss A') =>
   date && moment(date).format(format);
 
+export const momentToISOString = (momentObject: Moment | null) =>
+  isEveryArgsTruthy(momentObject) && momentObject!.toISOString();
+
 // TODO Might be useless if better moment solution for countdown is implemented
 // USAGE ~ Format countdown numbers when they're less than 9
 export function formatDateNumber(input: number): string | number {
@@ -51,21 +71,6 @@ export const buildUrl = (url: string[]) => url.join('/');
 
 export const toString = (x: any): string => x.toString();
 // END ~ FORMATTERS
-
-// START ~ GUARDS
-export function typeGuardFunction<T>(object: T, key: string): boolean {
-  return key in object;
-}
-
-export const areArgsTruthy = (...args: any[]) => args.every(Boolean);
-
-// USAGE ~ Throw errors which are then visible in Sentry
-export const throwError = (error: unknown) => {
-  if (error instanceof Error) {
-    throw new Error(error.message);
-  }
-};
-// END ~ GUARDS
 
 export function conditionalRender<T>(condition: boolean, component: T): T | null {
   return condition ? component : null;

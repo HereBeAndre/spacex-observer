@@ -5,6 +5,7 @@ import { useInView } from 'react-intersection-observer';
 import { RouteComponentProps } from '@reach/router';
 import axios from 'axios';
 import { FieldValues } from 'react-hook-form';
+import { Moment } from 'moment';
 
 import { RadioChangeEvent } from 'antd';
 
@@ -20,10 +21,12 @@ import Dropdown from 'components/shared/buttons/Dropdown/Dropdown';
 import LaunchForm from 'components/shared/forms/LaunchForm';
 
 import {
-  areArgsTruthy,
+  isEveryArgsTruthy,
   conditionalRender,
   getNestedObjectPropertyByPathName,
+  momentToISOString,
   throwError,
+  isSomeArgsTruthy,
 } from 'utils/functions';
 import { LAUNCHES_TYPE_OPTIONS, SORT_OPTIONS } from 'utils/constants';
 
@@ -36,14 +39,18 @@ const Launches = (props: RouteComponentProps) => {
   const [sortValue, setSortValue] = useState<string>(() =>
     getNestedObjectPropertyByPathName(SORT_OPTIONS, ['0', 'value']),
   );
+  const [launchDateRange, setLaunchDateRange] = useState<[Moment | null, Moment | null]>(() => [
+    null,
+    null,
+  ]);
 
   const onSortChange = ({ target: { value } }: RadioChangeEvent) => setSortValue(value);
 
   const handleDropdownChange = (value: string) => setLaunchType(value);
 
   const onFormSubmit = (data: FieldValues) => {
-    const { dateFrom, dateTo } = data;
-    console.log(dateFrom?.toISOString(), dateTo?.toISOString());
+    const { fromDate, toDate } = data;
+    setLaunchDateRange([fromDate, toDate]);
   };
 
   // TODO Move query in ad hoc file - part of API requests refactoring topic
@@ -60,7 +67,7 @@ const Launches = (props: RouteComponentProps) => {
     hasNextPage,
     hasPreviousPage,
   } = useInfiniteQuery(
-    ['launches', sortValue, launchType],
+    ['launches', sortValue, launchType, launchDateRange],
     async ({ pageParam = 1 }) => {
       const res = await axios.post<ILaunchQuery>(`${BASE_URL}v5/${ApiEndpoints.QUERY_LAUNCHES}`, {
         options: {
@@ -82,6 +89,16 @@ const Launches = (props: RouteComponentProps) => {
         },
         query: {
           upcoming: launchType === 'upcoming',
+          ...(isSomeArgsTruthy(launchDateRange[0], launchDateRange[1]) && {
+            date_utc: {
+              ...(isEveryArgsTruthy(launchDateRange[0]) && {
+                $gte: momentToISOString(launchDateRange[0]),
+              }),
+              ...(isEveryArgsTruthy(launchDateRange[1]) && {
+                $lte: momentToISOString(launchDateRange[1]),
+              }),
+            },
+          }),
         },
       });
       return res;
@@ -123,7 +140,7 @@ const Launches = (props: RouteComponentProps) => {
       })}
       {/* TODO Replace 'Loading...' string with something nicer */}
       {conditionalRender(
-        areArgsTruthy(hasNextPage),
+        isEveryArgsTruthy(hasNextPage),
         <div ref={ref}>{isFetching && 'Loading...'}</div>,
       )}
       <ScrollTop />
