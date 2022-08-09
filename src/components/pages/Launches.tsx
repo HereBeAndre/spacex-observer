@@ -4,6 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { useInView } from 'react-intersection-observer';
 import { RouteComponentProps } from '@reach/router';
 import axios from 'axios';
+import { FieldValues } from 'react-hook-form';
 
 import { RadioChangeEvent } from 'antd';
 
@@ -16,6 +17,7 @@ import ScrollTop from 'components/shared/buttons/ScrollTop/ScrollTop';
 import { navigateTo } from 'components/routes/routes';
 import RadioGroup from 'components/shared/buttons/RadioGroup/RadioGroup';
 import Dropdown from 'components/shared/buttons/Dropdown/Dropdown';
+import LaunchForm from 'components/shared/forms/LaunchForm';
 
 import {
   areArgsTruthy,
@@ -38,6 +40,11 @@ const Launches = (props: RouteComponentProps) => {
   const onSortChange = ({ target: { value } }: RadioChangeEvent) => setSortValue(value);
 
   const handleDropdownChange = (value: string) => setLaunchType(value);
+
+  const onFormSubmit = (data: FieldValues) => {
+    const { dateFrom, dateTo } = data;
+    console.log(dateFrom?.toISOString(), dateTo?.toISOString());
+  };
 
   // TODO Move query in ad hoc file - part of API requests refactoring topic
   const {
@@ -104,6 +111,7 @@ const Launches = (props: RouteComponentProps) => {
       <h3>Launches</h3>
       <Dropdown options={LAUNCHES_TYPE_OPTIONS} handleChange={handleDropdownChange} />
       <RadioGroup options={SORT_OPTIONS} value={sortValue} onChange={onSortChange} />
+      <LaunchForm onSubmit={onFormSubmit} />
       {data?.pages?.map((page) => {
         return page?.data?.docs?.map((launch) => (
           <LaunchesItemCard
