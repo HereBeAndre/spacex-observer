@@ -2,7 +2,7 @@ import React, { MouseEventHandler, ReactNode } from 'react';
 
 import { TSpaceXResponseStatus } from 'schemas/api_d';
 
-import { areArgsTruthy, conditionalRender } from 'utils/functions';
+import { isEveryArgsTruthy, conditionalRender } from 'utils/functions';
 
 import './Card.scss';
 
@@ -37,9 +37,9 @@ const Card: React.FC<ICardProps> = ({
       data-testid="Card"
       {...rest}
     >
-      {conditionalRender(areArgsTruthy(title), <h3>{title}</h3>)}
+      {conditionalRender(isEveryArgsTruthy(title), <h3>{title}</h3>)}
       <div className="card-content__style" id={cardStyleContentId}>
-        {areArgsTruthy(isLoading) ? <p>Loading...</p> : children}
+        {isEveryArgsTruthy(isLoading) ? <p>Loading...</p> : children}
       </div>
     </div>
   );

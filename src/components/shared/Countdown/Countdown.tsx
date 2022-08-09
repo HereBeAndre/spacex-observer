@@ -5,7 +5,7 @@ import { TDuration } from 'schemas/utils_d';
 
 import { MILLISECONDS_INTERVAL } from 'utils/constants';
 import {
-  areArgsTruthy,
+  isEveryArgsTruthy,
   conditionalRender,
   formatDateNumber,
   getDurationInterval,
@@ -70,12 +70,12 @@ const Countdown: React.FC<ICountdownProps> = ({ unixTime, isLoading, hasTitle })
   if (isLoading) return <p>Loading...</p>;
 
   return conditionalRender(
-    areArgsTruthy(Object.entries(durationObject).length),
+    isEveryArgsTruthy(Object.entries(durationObject).length),
     <article className="countdown-container" data-testid="Countdown">
       {/* TODO Ideally title logic should be extracted in ad hoc countdown component -
       smth like LaunchComponent which implements Countdown */}
       {conditionalRender(
-        areArgsTruthy(hasTitle),
+        isEveryArgsTruthy(hasTitle),
         <h3 data-testid="CountdownTitle">{momentInTime} launch</h3>,
       )}
       {Object.entries(durationObject).map(([key]) => {
