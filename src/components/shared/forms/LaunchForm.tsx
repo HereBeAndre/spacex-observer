@@ -1,7 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { Moment } from 'moment';
 import { Controller, FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+
 import { DatePicker } from 'antd';
+import { RangePickerProps } from 'antd/lib/date-picker';
 
 import { DATE_FORMAT } from 'utils/constants';
 
@@ -10,11 +12,17 @@ interface ILaunchFormProps {
 }
 
 const LaunchForm: FunctionComponent<ILaunchFormProps> = ({ onSubmit }) => {
-  const { handleSubmit, control, setValue, reset } = useForm();
+  const { handleSubmit, control, setValue, getValues, reset } = useForm();
 
   const onDateFromChange = (momentDate: Moment | null) => setValue('dateFrom', momentDate);
 
   const onDateToChange = (momentDate: Moment | null) => setValue('dateTo', momentDate);
+
+  const disabledFutureDates: RangePickerProps['disabledDate'] = (current): boolean =>
+    current && current > getValues('dateTo');
+
+  const disabledPastDates: RangePickerProps['disabledDate'] = (current): boolean =>
+    current && current < getValues('dateFrom');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -22,14 +30,24 @@ const LaunchForm: FunctionComponent<ILaunchFormProps> = ({ onSubmit }) => {
         name="dateFrom"
         control={control}
         render={({ field: { value } }) => (
-          <DatePicker onChange={onDateFromChange} value={value} format={DATE_FORMAT} />
+          <DatePicker
+            onChange={onDateFromChange}
+            value={value}
+            format={DATE_FORMAT}
+            disabledDate={disabledFutureDates}
+          />
         )}
       />
       <Controller
         name="dateTo"
         control={control}
         render={({ field: { value } }) => (
-          <DatePicker onChange={onDateToChange} value={value} format={DATE_FORMAT} />
+          <DatePicker
+            onChange={onDateToChange}
+            value={value}
+            format={DATE_FORMAT}
+            disabledDate={disabledPastDates}
+          />
         )}
       />
       <input type="submit" />
